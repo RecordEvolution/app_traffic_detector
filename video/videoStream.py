@@ -8,6 +8,7 @@ import argparse
 import time
 from datetime import datetime
 from reswarm import Reswarm
+from mmdet.apis import inference_detector, init_detector
 
 from pprint import pprint
 import base64
@@ -83,7 +84,10 @@ cap.set(4, RESOLUTION_Y)
 
 MODEL_RESX = (RESOLUTION_X // 32) * 32 # must be multiple of max stride 32
 MODEL_RESY = (RESOLUTION_Y // 32) * 32
-model = getModel(OBJECT_MODEL, MODEL_RESX, MODEL_RESY)
+# model = getModel(OBJECT_MODEL, MODEL_RESX, MODEL_RESY)
+config_path = "faster_rcnn_r50_fpn_coco.pt"
+checkpoint_path = config_path.replace(".pt", ".pth")  # Assuming checkpoint has same name (modify if different)
+model = init_detector(config_path, checkpoint_path, device='cuda')  # Change to 'cpu' if using CPU
 
 # print("CUDA available:", torch.cuda.is_available(), 'GPUs', torch.cuda.device_count())
 
@@ -131,7 +135,8 @@ async def main(_saved_masks):
             lineCounts = {}
             results = []
             fps_monitor.tick()
-            results = model(frame, imgsz=(MODEL_RESY, MODEL_RESX), conf=CONF, iou=IOU, verbose=False, classes=CLASS_LIST)
+            results = inference_detector(model, frame)
+            # results = model(frame, imgsz=(MODEL_RESY, MODEL_RESX), conf=CONF, iou=IOU, verbose=False, classes=CLASS_LIST)
             start_time2 = time.time()
             
             if len(results) > 0:

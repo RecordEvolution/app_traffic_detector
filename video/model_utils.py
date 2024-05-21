@@ -199,11 +199,11 @@ def prepMasks(in_masks):
     return out_masks
 
 def processFrame(frame, results, class_list, saved_masks):
-    if len(results) == 0:
-        return frame, []
+    # if len(results) == 0:
+    #     return frame, []
 
     try:
-        detections = sv.Detections.from_ultralytics(results[0])
+        detections = sv.Detections.from_mmdetection(results)
     except Exception as e:
         print('Failed to extract detections from model result', e)
         traceback.print_exc()
