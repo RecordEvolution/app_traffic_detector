@@ -1,24 +1,28 @@
-FROM ultralytics/ultralytics:8.2.11-jetson
+# Use the NVIDIA L4T TensorRT base image
+FROM nvcr.io/nvidia/l4t-jetpack:r35.3.1
 
-RUN apt-get -y update && apt-get -y upgrade && \
-	apt-get install -y \
-		libmicrohttpd-dev libjansson-dev \
-		libssl-dev libsofia-sip-ua-dev libglib2.0-dev \
-		libopus-dev libogg-dev libcurl4-openssl-dev liblua5.3-dev \
-		libconfig-dev pkg-config libtool automake \
-		libavutil-dev \
-		libavformat-dev \
-		libavcodec-dev \
-		libwebsockets-dev \
-		meson \
-		libgtk-3-dev \
-		curl \
-		ffmpeg \
-		openssh-server \
-		unzip nginx procps v4l-utils git \
-		usbutils udev && \
-	apt-get clean && \
-	rm -rf /var/lib/apt/lists/*
+# Set environment variables
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    git \
+    wget \
+    curl \
+	libssl-dev \
+	gstreamer1.0-tools gstreamer1.0-plugins-bad gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-libav \
+	ffmpeg \
+	openssh-server \
+	unzip nginx procps v4l-utils git \
+	usbutils udev && \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Upgrade pip to the latest version
+RUN pip3 install --upgrade pip
+
+# --------------------------- My Stuff -----------------------
 
 WORKDIR /app/video
 

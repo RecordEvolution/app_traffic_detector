@@ -1,16 +1,11 @@
 reswarm==0.0.19
-# torchvision==0.15
+torch
+torchvision
+supervision
 matplotlib>=3.6.0
 pyyaml>=5.3
-scipy==1.10.0
+scipy
 defusedxml==0.7.1
 pillow>=9.4
 lapx==0.5.5
-# pyudev
-# polars
-# aiohttp
-# aiohttp_cors
 yt_dlp
-
-mmcv
-mmdet
