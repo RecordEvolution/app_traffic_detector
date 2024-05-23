@@ -1,17 +1,9 @@
-FROM ultralytics/ultralytics:8.2.11-jetson
+FROM ultralytics/ultralytics:8.2.19-jetson
 
 RUN apt-get -y update && apt-get -y upgrade && \
 	apt-get install -y \
-		libmicrohttpd-dev libjansson-dev \
-		libssl-dev libsofia-sip-ua-dev libglib2.0-dev \
-		libopus-dev libogg-dev libcurl4-openssl-dev liblua5.3-dev \
-		libconfig-dev pkg-config libtool automake \
-		libavutil-dev \
-		libavformat-dev \
-		libavcodec-dev \
-		libwebsockets-dev \
-		meson \
-		libgtk-3-dev \
+		libssl-dev \
+		gstreamer1.0-tools gstreamer1.0-plugins-bad gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-libav \
 		curl \
 		ffmpeg \
 		openssh-server \

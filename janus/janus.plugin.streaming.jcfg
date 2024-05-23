@@ -58,36 +58,38 @@ multistream: {
 			mid = "frontCam"
 			label = "Video stream Front"
 			port = 5004
-			pt = 96
+			pt = 101
 			codec = "vp8"
+			# opt = 126
 			# codec = "h264"
-		},
-		{
-			type = "video"
-			mid = "leftCam"
-			label = "Video stream Left"
-			port = 5005
-			pt = 96
-			codec = "vp8"
-		},
-		{
-			type = "video"
-			mid = "rightCam"
-			label = "Video stream Right"
-			port = 5006
-			pt = 96
-			codec = "vp8"
-		},
-		{
-			type = "video"
-			mid = "backCam"
-			label = "Video stream Back"
-			port = 5007
-			pt = 96
-			codec = "vp8"
-			# rtpmap = "H264/90000"
 			# fmtp = "profile-level-id=42e01f;packetization-mode=1"
 		}
+#		{
+#			type = "video"
+#			mid = "leftCam"
+#			label = "Video stream Left"
+#			port = 5005
+#			pt = 96
+#			codec = "vp8"
+#		},
+#		{
+#			type = "video"
+#			mid = "rightCam"
+#			label = "Video stream Right"
+#			port = 5006
+#			pt = 96
+#			codec = "vp8"
+#		},
+#		{
+#			type = "video"
+#			mid = "backCam"
+#			label = "Video stream Back"
+#			port = 5007
+#			pt = 96
+#			codec = "vp8"
+#			# rtpmap = "H264/90000"
+#			# fmtp = "profile-level-id=42e01f;packetization-mode=1"
+#		}
 	)
 	# secret = "adminpwd"
 }

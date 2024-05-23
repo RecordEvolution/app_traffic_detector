@@ -54,9 +54,9 @@ parser.add_argument('camStream', type=str, help='One of frontCam, leftCam, right
 args = parser.parse_args()
 
 portMap = {"frontCam": 5004,
-           "leftCam": 5005,
-           "rightCam": 5006,
-           "backCam": 5007}
+        "leftCam": 5005,
+        "rightCam": 5006,
+        "backCam": 5007}
 
 device = args.device
 print('CAMERA USED:' + device)
@@ -98,13 +98,15 @@ async def main(_saved_masks):
         prev_frame_time = time.time()
         frame_skip_threshold = 1.0 / FRAMERATE  # Maximum allowed processing time per frame
 
-        outputFormat = " videoconvert ! vp8enc deadline=2 threads=4 keyframe-max-dist=6 ! video/x-vp8 ! rtpvp8pay pt=96"
-        # outputFormat = "nvvidconv ! nvv4l2h264enc maxperf-enable=1 insert-sps-pps=true insert-vui=true ! h264parse ! rtph264pay"
-
-        writerStream = "appsrc do-timestamp=true ! " + outputFormat + " ! udpsink host=janus port=" + str(portMap[args.camStream])
-        # print(writerStream)
+        outputFormat = " videoconvert ! queue ! vp8enc deadline=2 threads=16 keyframe-max-dist=20 ! video/x-vp8 ! rtpvp8pay pt=101 "
+        # outputFormat = " videoconvert ! nvvidconv ! nvv4l2h264enc maxperf-enable=1 insert-sps-pps=true insert-vui=true ! h264parse ! rtph264pay"        
+        writerStream = "appsrc ! " + outputFormat + " ! udpsink host=janus port=" + str(portMap[args.camStream])
+        
+        outputFormat = " videoconvert ! nvv4l2h264enc ! queue ! rtph264pay config-over-rtp=false "        
+        writerStream = "appsrc ! " + outputFormat + " ! udpsink host=localhost port=" + str(portMap[args.camStream]) + " ! webrtcbin bundle=true appsrc name=source ! queue ! webrtcbin recv-indx=0 ! queue ! fakesink silent=false webrtcbin send-indx=0 ssrc=1000 ! rtpvpay ! udpsink host=localhost port=1200 webrtcbin source % source ! appsink"
 
         out = cv2.VideoWriter(writerStream, 0, FRAMERATE, (RESOLUTION_X, RESOLUTION_Y))
+        print('------------------- Write Stream configured with', writerStream)
 
         while cap.isOpened():
             elapsed_time = time.time() - start_time
@@ -144,6 +146,7 @@ async def main(_saved_masks):
 
             # Publish data
             if elapsed_time1 >= 2.0:
+                print('FPS:', str(fps_monitor.fps))
                 for item in zoneCounts:
                     publishImage(frame)
                     publishClassCount(item["label"], item["count"])
@@ -157,9 +160,6 @@ async def main(_saved_masks):
                 start_time = time.time()
 
             out.write(frame)
-
-            if cv2.waitKey(1) == ord('q'):
-                break
 
             await sleep(0) # Give other ask time to run, not a hack: https://superfastpython.com/what-is-asyncio-sleep-zero/#:~:text=You%20can%20force%20the%20current,before%20resuming%20the%20current%20task.
 
@@ -217,7 +217,7 @@ rw = Reswarm()
 if __name__ == "__main__":
     # run the main coroutine
     task1 = get_event_loop().create_task(readMasksFromStdin(saved_masks))
-    task2 = get_event_loop().create_task(main(saved_masks))
+    # task2 = get_event_loop().create_task(main(saved_masks))
 
     # run the reswarm component
     rw.run()
