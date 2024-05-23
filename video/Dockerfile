@@ -3,6 +3,9 @@ FROM ultralytics/ultralytics:8.2.19-jetson
 RUN apt-get -y update && \
 	apt-get install -y \
 		libssl-dev \
+		libavutil-dev \
+		libavformat-dev \
+		libavcodec-dev \
 		gstreamer1.0-tools gstreamer1.0-plugins-bad gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-libav \
 		curl \
 		ffmpeg \
