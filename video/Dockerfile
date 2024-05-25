@@ -40,4 +40,7 @@ COPY . /app/video
 
 RUN echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config
 
+ENV LD_PRELOAD=/usr/lib/aarch64-linux-gnu/libgomp.so.1
+ENV LD_PRELOAD=/usr/lib/aarch64-linux-gnu/libGLdispatch.so.0
+
 ENTRYPOINT ["/app/video/entrypoint.sh"]
