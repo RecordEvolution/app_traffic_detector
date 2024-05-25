@@ -1,4 +1,4 @@
-# Use the NVIDIA L4T TensorRT base image
+# Use the NVIDIA L4T TensorRT or jetpack base image
 FROM nvcr.io/nvidia/l4t-jetpack:r35.3.1
 
 # Set environment variables
@@ -11,16 +11,13 @@ RUN apt-get update && apt-get install -y \
     wget \
     curl \
 	libssl-dev \
-	gstreamer1.0-tools gstreamer1.0-plugins-bad gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-libav \
+# 	gstreamer1.0-tools gstreamer1.0-plugins-bad gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-libav \
 	ffmpeg \
 	openssh-server \
 	unzip nginx procps v4l-utils git \
 	usbutils udev && \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
-
-# Upgrade pip to the latest version
-RUN pip3 install --upgrade pip
 
 # --------------------------- My Stuff -----------------------
 
