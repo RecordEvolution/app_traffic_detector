@@ -17,29 +17,36 @@ videoPlayer.rightCam = document.getElementById('rightCam')
 
 const janusServerUrl = getJanusUrl(); // Replace with your Janus server URL
 const iceServers = [
-  {
-    urls: "stun:stun.l.google.com:19302",
-  },
+  { urls: "stun:stun.l.google.com:19302" },
+  { urls: "stun:stun.l.google.com:5349" },
+  { urls: "stun:stun1.l.google.com:3478" },
+  { urls: "stun:stun1.l.google.com:5349" },
+  { urls: "stun:stun2.l.google.com:19302" },
+  { urls: "stun:stun2.l.google.com:5349" },
+  { urls: "stun:stun3.l.google.com:3478" },
+  { urls: "stun:stun3.l.google.com:5349" },
+  { urls: "stun:stun4.l.google.com:19302" },
+  { urls: "stun:stun4.l.google.com:5349" },
   {
     urls: "turn:relay1.expressturn.com:3478",
     username: "ef8VXO351A31UJVGBY",
     credential: "PD1trsvPrgQ4uWAf",
   },
-  // {
-  //   urls: "turn:a.relay.metered.ca:80?transport=tcp",
-  //   username: "f63d4fc5ff93197d239f602f",
-  //   credential: "ZaHWKZRVcc1+8sKn",
-  // },
-  // {
-  //   urls: "turn:a.relay.metered.ca:443",
-  //   username: "f63d4fc5ff93197d239f602f",
-  //   credential: "ZaHWKZRVcc1+8sKn",
-  // },
-  // {
-  //   urls: "turn:a.relay.metered.ca:443?transport=tcp",
-  //   username: "f63d4fc5ff93197d239f602f",
-  //   credential: "ZaHWKZRVcc1+8sKn",
-  // },
+  {
+    urls: "turn:a.relay.metered.ca:80?transport=tcp",
+    username: "f63d4fc5ff93197d239f602f",
+    credential: "ZaHWKZRVcc1+8sKn",
+  },
+  {
+    urls: "turn:a.relay.metered.ca:443",
+    username: "f63d4fc5ff93197d239f602f",
+    credential: "ZaHWKZRVcc1+8sKn",
+  },
+  {
+    urls: "turn:a.relay.metered.ca:443?transport=tcp",
+    username: "f63d4fc5ff93197d239f602f",
+    credential: "ZaHWKZRVcc1+8sKn",
+  },
 ]
 
 // Initialize Janus
