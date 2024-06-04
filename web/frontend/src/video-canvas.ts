@@ -193,7 +193,6 @@ export class VideoCanvas extends LitElement {
         }
       }
 
-
     `,
   ];
 
