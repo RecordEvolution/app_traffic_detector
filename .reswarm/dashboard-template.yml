@@ -1,238 +1,173 @@
 name: Traffic
 widgets:
   - package_name: widget-linechart
-    chartdata:
+    chartconfig:
       settings:
-        timeseries: true
-        xAxisLabel: Time
+        timeseries: $bool:true
+        xAxisLabel: $str:Time
         yAxisLabel: $str:Count
-        columnLayout: null
         title: $str:Parking Occupation History
-        subTitle: null
       dataseries:
         - label: $str:Count
-          order: null
-          chartName: $str:num#pivot#
           type: $str:line
-          radius: null
-          pointStyle: null
           backgroundColor: $str:#db8b1a
           borderColor: $str:#db8b1a
-          borderWidth: $num:1
-          borderDash: null
+          styling:
+            borderWidth: $num:1
+          advanced:
+            chartName: $str:num#split#
           data:
             tableRef:
               tablename: detections
-              bufferSize: "3000"
+              queryParams:
+                limit: 3000
               format:
                 x: tsp
                 y: num_cars
-                r: null
                 pivot: zonename
-          fill: null
-    version: 1.4.15
+    version: 1.5.1
     layout_id: 1
   - package_name: widget-value
-    chartdata:
-      settings:
-        title: $str:Current Vehicle Counts
-        subTitle: null
+    chartconfig:
+      title: $str:Current Vehicle Counts
       dataseries:
         - label: $str:Cars
-          unit: null
-          precision: null
-          labelColor: $str:#f2b46e
-          valueColor: $str:#cb873a
-          averageLatest: "$num:"
-          maxLatency: null
+          styling:
+            labelColor: $str:#f2b46e
+            valueColor: $str:#cb873a
           data:
             tableRef:
               tablename: detections
-              bufferSize: 10
+              queryParams:
+                limit: 10
               format:
                 tsp: tsp
                 value: num_cars
                 pivot: zonename
         - label: $str:Buses
-          unit: null
-          precision: null
-          labelColor: $str:#9cd695
-          valueColor: $str:#49983e
-          averageLatest: null
-          maxLatency: null
+          styling:
+            labelColor: $str:#9cd695
+            valueColor: $str:#49983e
           data:
             tableRef:
               tablename: detections
-              bufferSize: 10
+              queryParams:
+                limit: 10
               format:
                 tsp: tsp
                 value: num_buses
                 pivot: zonename
         - label: $str:Trucks
-          unit: null
-          precision: null
-          labelColor: $str:#56a49b
-          valueColor: $str:#249487
-          averageLatest: null
-          maxLatency: null
+          styling:
+            labelColor: $str:#56a49b
+            valueColor: $str:#249487
           data:
             tableRef:
               tablename: detections
-              bufferSize: 10
+              queryParams:
+                limit: 10
               format:
                 tsp: tsp
                 value: num_trucks
                 pivot: zonename
-    version: 1.0.27
+    version: 1.1.4
     layout_id: 3
   - package_name: widget-table
-    chartdata:
-      settings:
+    chartconfig:
+      styling:
         headerFontSize: $str:16px
         headerBackground: $str:#c9c9c9
         rowHeight: $str:40px
-        title: "$str:"
-        subTitle: null
-        rowBorder: null
       columns:
         - header: $str:Camera
           type: $str:button
-          precision: null
-          width: null
-          fontSize: null
-          fontWeight: null
           color: $str:#252627
-          border: null
-          stateMap: null
           values:
             tableRef:
               tablename: device_agg
-              bufferSize: 500
+              queryParams:
+                limit: 500
               format: devicelink
         - header: $str:Live Stream
           type: $str:button
-          precision: null
-          width: null
-          fontSize: null
-          fontWeight: null
-          color: $str:#252627
-          border: null
-          stateMap: null
+          styling:
+            color: $str:#252627
           values:
             tableRef:
               tablename: device_agg
-              bufferSize: 500
+              queryParams:
+                limit: 500
               format: videolink
-    version: 1.0.12
+    version: 1.1.2
     layout_id: 4
   - package_name: widget-image
-    chartdata:
+    chartconfig:
       imageLink:
         valueRef:
           tablename: images
           column: image
       title:
         text: $str:Camera Feed
-        fontSize: null
-        fontWeight: null
-        color: null
-        backgroundColor: null
       subTitle:
         text: "$str:"
-        fontSize: null
-        fontWeight: null
-        color: null
     version: 1.0.8
     layout_id: 5
   - package_name: widget-image
-    chartdata:
+    chartconfig:
       imageLink: $str:https://storage.googleapis.com/reswarm-images/prod/reswarm-0-1706095631331-Cam_icon-682decf0d8.png
       title:
         text: $str:Revis
-        fontSize: null
-        fontWeight: null
-        color: null
-        backgroundColor: null
       subTitle:
         text: $str:Nvidia Jetson AGX Xavier
-        fontSize: null
-        fontWeight: null
-        color: null
-    version: 1.0.8
+    version: 1.1.1
     layout_id: 8
-  - version: 1.0.12
+  - version: 1.1.1
     package_name: widget-textbox
-    chartdata:
-      title:
-        text: "$str:"
-        fontSize: null
-        fontWeight: null
-        color: $str:#5a6666
-        backgroundColor: null
+    chartconfig:
       subTitle:
         text: $str:About the Smart Camera System​
-        fontSize: null
-        fontWeight: null
         color: $str:#5a6666
       body:
         text: "$str:The Smart Camera System relies on Hardware from NVIDIA. Any USB or IP Camera can be used with the
           NVIDIA PC. "
-        fontSize: null
-        fontWeight: null
         color: $str:#5a6666
-        backgroundColor: null
     layout_id: 10
   - package_name: widget-linechart
-    chartdata:
-      settings:
+    chartconfig:
+      axis:
         timeseries: $bool:true
         xAxisLabel: $str:Time
         yAxisLabel: $str:Count
-        columnLayout: null
-        title: null
-        subTitle: null
       dataseries:
         - label: $str:In
-          order: null
-          chartName: $str:#pivot#
           type: $str:bar
-          radius: null
-          pointStyle: null
           backgroundColor: $str:#8df88b
-          borderColor: null
-          borderWidth: null
-          borderDash: null
-          fill: null
+          advanced:
+            chartName: $str:#split#
           data:
             tableRef:
               tablename: linecount_agg
-              bufferSize: 500
+              queryParams:
+                limit: 500
               format:
                 x: period
                 y: num_in
-                r: null
                 pivot: linename
         - label: $str:Out
-          order: null
-          chartName: $str:#pivot#
           type: $str:bar
-          radius: null
-          pointStyle: null
           backgroundColor: $str:#f07a7a
-          borderColor: null
-          borderWidth: null
-          borderDash: null
-          fill: null
+          advanced:
+            chartName: $str:#split#
           data:
             tableRef:
               tablename: linecount_agg
-              bufferSize: 100
+              queryParams:
+                limit: 100
               format:
                 x: period
                 y: num_out
-                r: null
                 pivot: linename
-    version: 1.4.15
+    version: 1.5.1
     layout_id: 12
 layout:
   - w: 2
