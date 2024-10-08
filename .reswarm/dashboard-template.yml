@@ -2,7 +2,7 @@ name: Traffic
 widgets:
   - package_name: widget-linechart
     chartconfig:
-      settings:
+      axis:
         timeseries: $bool:true
         xAxisLabel: $str:Time
         yAxisLabel: $str:Count
@@ -14,13 +14,15 @@ widgets:
           borderColor: $str:#db8b1a
           styling:
             borderWidth: $num:1
+            fill: $bool:false
+            radius: $num:0
           advanced:
             chartName: $str:num#split#
           data:
             tableRef:
               tablename: detections
               queryParams:
-                limit: 3000
+                limit: 500
               format:
                 x: tsp
                 y: num_cars
