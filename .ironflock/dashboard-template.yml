@@ -152,7 +152,13 @@ widgets:
             tableRef:
               tablename: linecount_agg
               queryParams:
-                limit: 500
+                limit: 3000
+                windowPeriod: day
+                windowLength: 2
+                nowMinusPeriods: 0
+                timeRange:
+                  - 2024-10-07T22:00:00.000Z
+                  - 2024-10-09T22:00:00.000Z
               format:
                 x: period
                 y: num_in
