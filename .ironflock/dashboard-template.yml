@@ -24,10 +24,10 @@ widgets:
               queryParams:
                 limit: 500
               format:
-                x: tsp
                 y: num_cars
+                x: tsp
                 pivot: zonename
-    version: 1.5.1
+    version: 1.5.3
     layout_id: 1
   - package_name: widget-value
     chartconfig:
@@ -112,7 +112,7 @@ widgets:
         text: $str:Camera Feed
       subTitle:
         text: "$str:"
-    version: 1.0.8
+    version: 1.1.1
     layout_id: 5
   - package_name: widget-image
     chartconfig:
@@ -140,12 +140,14 @@ widgets:
         timeseries: $bool:true
         xAxisLabel: $str:Time
         yAxisLabel: $str:Count
+        columnLayout: $bool:false
       dataseries:
         - label: $str:In
           type: $str:bar
           backgroundColor: $str:#8df88b
           advanced:
             chartName: $str:#split#
+            drawOrder: $num:1
           data:
             tableRef:
               tablename: linecount_agg
@@ -154,7 +156,9 @@ widgets:
               format:
                 x: period
                 y: num_in
+                r: $num:10
                 pivot: linename
+          borderColor: $str:#147272
         - label: $str:Out
           type: $str:bar
           backgroundColor: $str:#f07a7a
@@ -164,12 +168,19 @@ widgets:
             tableRef:
               tablename: linecount_agg
               queryParams:
-                limit: 100
+                limit: 3000
+                windowPeriod: day
+                windowLength: 2
+                nowMinusPeriods: 0
+                timeRange:
+                  - 2024-10-07T22:00:00.000Z
+                  - 2024-10-09T22:00:00.000Z
               format:
                 x: period
                 y: num_out
                 pivot: linename
-    version: 1.5.1
+          borderColor: $str:#F9A076
+    version: 1.5.3
     layout_id: 12
 layout:
   - w: 2

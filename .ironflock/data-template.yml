@@ -158,7 +158,7 @@ data:
         FROM 
           linecounts
         WHERE 
-          tsp > now() - INTERVAL '1 days'
+          tsp > now() - INTERVAL '7 days'
         GROUP BY
           devname, linename, period
       columns:
