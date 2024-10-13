@@ -6,7 +6,7 @@ widgets:
         timeseries: $bool:true
         xAxisLabel: $str:Time
         yAxisLabel: $str:Count
-        title: $str:Parking Occupation History
+      title: $str:Parking Occupation History
       dataseries:
         - label: $str:Count
           type: $str:line
@@ -27,7 +27,7 @@ widgets:
                 y: num_cars
                 x: tsp
                 pivot: zonename
-    version: 1.5.3
+    version: 1.5.4
     layout_id: 1
   - package_name: widget-value
     chartconfig:
@@ -72,7 +72,7 @@ widgets:
                 tsp: tsp
                 value: num_trucks
                 pivot: zonename
-    version: 1.1.4
+    version: 1.1.5
     layout_id: 3
   - package_name: widget-table
     chartconfig:
@@ -100,7 +100,7 @@ widgets:
               queryParams:
                 limit: 500
               format: videolink
-    version: 1.1.2
+    version: 1.1.3
     layout_id: 4
   - package_name: widget-image
     chartconfig:
@@ -112,7 +112,7 @@ widgets:
         text: $str:Camera Feed
       subTitle:
         text: "$str:"
-    version: 1.1.1
+    version: 1.1.2
     layout_id: 5
   - package_name: widget-image
     chartconfig:
@@ -186,7 +186,7 @@ widgets:
                 y: num_out
                 pivot: linename
           borderColor: $str:#F9A076
-    version: 1.5.3
+    version: 1.5.4
     layout_id: 12
 layout:
   - w: 2
